@@ -55,6 +55,7 @@ class LinearRegression:
             self.price_min, self.price_max = get_model_parameters()
         if self.training:
             self.learning_rate: float = 1e-2
+            
             self.epochs: int = 30000
             self.costs: List[float] = []
             self._normalize()
