@@ -1,7 +1,6 @@
 import pandas as pd
 from matplotlib import pyplot as plt
-from typing import Tuple
-from utils import get_model_parameters, get_hyperparameters, parse_and_check_csv
+from utils import get_model_parameters, parse_and_check_csv
 
 def plot(data: pd.DataFrame, intercept: float, slope: float) -> None:
     plt.scatter(data['km'], data['price'])
@@ -9,6 +8,6 @@ def plot(data: pd.DataFrame, intercept: float, slope: float) -> None:
     plt.show()
 
 if __name__ == '__main__':
-    intercept, slope = get_model_parameters()
-    data: pd.DataFrame = parse_and_check_csv()
+    intercept, slope, km_min, km_max, price_min, price_max = get_model_parameters()
+    data = parse_and_check_csv(normalized=False)
     plot(data, intercept, slope)
