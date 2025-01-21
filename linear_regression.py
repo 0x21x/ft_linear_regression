@@ -1,8 +1,11 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import logging
 from typing import Tuple, List
 from utils import get_model_parameters, parse_and_check_csv, save_model_parameters
+
+logging.basicConfig(level=logging.INFO, format='%(levelname)s - %(message)s')
 
 def prediction(mileage: float, intercept: float, slope: float) -> float:
     """
@@ -61,7 +64,7 @@ class LinearRegression:
             Train the model with the given dataset
         """
         if not self.training:
-            print("Training unavailable without the training flag!")
+            logging.warning("Training unavailable without the training flag!")
             return
         for i in range(self.epochs):
             cost: float = forward_propagation(self.data, self.intercept, self.slope)
@@ -69,7 +72,7 @@ class LinearRegression:
             self.intercept, self.slope = backward_propagation(self.data, self.intercept, self.slope, self.learning_rate)
             if i % 1000 == 0:
                 self.learning_rate *= 1.1
-                print(f"Epoch {i} - Cost: {cost}")
+                logging.info(f"Epoch {i} - Cost: {cost}")
         self._denormalize()
         save_model_parameters(self.intercept, self.slope)
         if with_plot:
@@ -86,7 +89,7 @@ class LinearRegression:
             Plot the dataset
         """
         if self.training:
-            print("Plotting only available without the training flag!")
+            logging.warning("Plotting only available without the training flag!")
             return
         plt.scatter(self.data['km'], self.data['price'])
         plt.plot(self.data['km'], self.intercept + self.slope * self.data['km'], color='red')
@@ -100,7 +103,7 @@ class LinearRegression:
             Plot the cost function
         """
         if not self.training:
-            print("Plotting unavailable without the training flag!")
+            logging.warning("Plotting unavailable without the training flag!")
             return
         plt.plot(range(len(self.costs)), self.costs)
         plt.xlabel('Epochs')
@@ -113,21 +116,21 @@ class LinearRegression:
             Normalize the model parameters
         """
         if not self.training:
-            print("Normalization unavailable without the training flag!")
+            logging.warning("Normalization unavailable without the training flag!")
             return
         if self.intercept == 0 or self.slope == 0:
             return
         self.intercept = (self.intercept - self.price_min) / (self.price_max - self.price_min)
         self.slope = (self.slope - self.price_min) / (self.price_max - self.price_min)
-        print(self.intercept, self.slope)
+        logging.info(f"Normalized parameters - Intercept: {self.intercept}, Slope: {self.slope}")
 
     def _denormalize(self: 'LinearRegression') -> None:
         """
             Denormalize the model parameters
         """
         if not self.training:
-            print("Denormalization unavailable without the training flag!")
+            logging.warning("Denormalization unavailable without the training flag!")
             return
         self.intercept = self.intercept * (self.price_max - self.price_min) + self.price_min
         self.slope = self.slope * (self.price_max - self.price_min) / (self.km_max - self.km_min)
-        print(self.intercept, self.slope)
+        logging.info(f"Denormalized parameters - Intercept: {self.intercept}, Slope: {self.slope}")

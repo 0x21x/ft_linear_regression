@@ -1,20 +1,23 @@
 from linear_regression import LinearRegression
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(levelname)s - %(message)s')
 
 def ask_mileage() -> int:
     while True:
         try:
             mileage: int = int(input('Enter the mileage of the car: '))
             if mileage < 0:
-                print('The mileage must be a positive number.')
+                logging.warning('The mileage must be a positive number.')
             else:
                 return mileage
         except ValueError:
-            print('Please enter a valid number.')
+            logging.error('Please enter a valid number.')
 
 def main() -> None:
     linear_regression = LinearRegression()
     price: float = linear_regression.predict(ask_mileage())
-    print(f'The estimated price of the car is: {price}$')
+    logging.info(f'The estimated price of the car is: {price}$')
 
 if __name__ == '__main__':
     main()
