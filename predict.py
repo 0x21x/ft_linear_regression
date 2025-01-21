@@ -1,5 +1,4 @@
-from utils import get_model_parameters
-from train import prediction
+from linear_regression import LinearRegression
 
 def ask_mileage() -> int:
     while True:
@@ -13,9 +12,8 @@ def ask_mileage() -> int:
             print('Please enter a valid number.')
 
 def main() -> None:
-    mileage: int = ask_mileage()
-    intercept, slope, *_ = get_model_parameters()
-    price: float = prediction(mileage, intercept, slope)
+    linear_regression = LinearRegression()
+    price: float = linear_regression.predict(ask_mileage())
     print(f'The estimated price of the car is: {price}$')
 
 if __name__ == '__main__':

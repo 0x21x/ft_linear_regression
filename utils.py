@@ -2,9 +2,9 @@ import json
 import pandas as pd
 from typing import Tuple, Optional
 
-def get_model_parameters(intercept: Optional[float] = None, slope: Optional[float] = None,
-    km_min: Optional[float] = None, km_max: Optional[float] = None, price_min: Optional[float] = None,
-    price_max: Optional[float] = None) -> Tuple[float, float, float, float, float, float]:
+def get_model_parameters(intercept: Optional[float] = 0, slope: Optional[float] = 0,
+    km_min: Optional[float] = 0, km_max: Optional[float] = 0, price_min: Optional[float] = 0,
+    price_max: Optional[float] = 0) -> Tuple[float, float, float, float, float, float]:
     try:
         with open('model_parameters.json', 'r') as file:
             data: dict = json.load(file)
@@ -25,42 +25,6 @@ def get_model_parameters(intercept: Optional[float] = None, slope: Optional[floa
         with open('model_parameters.json', 'w') as file:
             json.dump({'intercept': intercept, 'slope': slope, 'km_min': km_min, 'km_max': km_max, 'price_min': price_min, 'price_max': price_max}, file, indent=4)
     return _intercept, _slope, _km_min, _km_max, _price_min, _price_max
-
-def get_hyperparameters() -> Tuple[float, int]:
-    try:
-        with open('hyper_parameters.json', 'r') as file:
-            data: dict = json.load(file)
-            learning_rate: float = data['learning_rate'] or 0.01
-            epochs: int = data['epochs'] or 100
-    except (json.decoder.JSONDecodeError, KeyError):
-        print('The hyperparameters have not been set yet.')
-        learning_rate: float = 0.01
-        epochs: int = 100
-        with open('hyper_parameters.json', 'w') as file:
-            json.dump({'learning_rate': learning_rate, 'epochs': epochs}, file, indent=4)
-    except FileNotFoundError:
-        print('Parameters file not found.')
-        raise SystemExit
-    return learning_rate, epochs
-
-def get_dataset_parameters() -> Tuple[float, float, float, float]:
-    with open('model_parameters.json', 'r') as file:
-        data: dict = json.load(file)
-        km_min: float = data['km_min'] or 0
-        km_max: float = data['km_max'] or 0
-        price_min: float = data['price_min'] or 0
-        price_max: float = data['price_max'] or 0
-    return km_min, km_max, price_min, price_max
-
-def save_dataset_parameters(km_min: float, km_max: float, price_min: float, price_max: float) -> None:
-    with open('model_parameters.json', 'r') as file:
-        data: dict = json.load(file)
-        data['km_min'] = km_min
-        data['km_max'] = km_max
-        data['price_min'] = price_min
-        data['price_max'] = price_max
-    with open('model_parameters.json', 'w') as file:
-        json.dump(data, file, indent=4)
 
 def parse_and_check_csv(normalized:bool=True) -> pd.DataFrame:
     try:
