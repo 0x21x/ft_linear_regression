@@ -25,7 +25,7 @@ The project consists of several Python scripts that work together to train a lin
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your-username/ft_linear_regression.git
+   git clone https://github.com/0x21x/ft_linear_regression.git
    cd ft_linear_regression
    ```
 
