@@ -54,7 +54,7 @@ class LinearRegression:
         self.intercept, self.slope, self.km_min, self.km_max, \
             self.price_min, self.price_max = get_model_parameters()
         if self.training:
-            self.learning_rate: float = 1e-3
+            self.learning_rate: float = 1e-2
             self.epochs: int = 30000
             self.costs: List[float] = []
             self._normalize()
@@ -71,7 +71,6 @@ class LinearRegression:
             self.costs.append(cost)
             self.intercept, self.slope = backward_propagation(self.data, self.intercept, self.slope, self.learning_rate)
             if i % 1000 == 0:
-                self.learning_rate *= 1.1
                 logging.info(f"Epoch {i} - Cost: {cost}")
         self._denormalize()
         save_model_parameters(self.intercept, self.slope)
