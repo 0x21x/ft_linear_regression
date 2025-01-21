@@ -23,8 +23,7 @@ def calculate_gradient(data: pd.DataFrame, intercept: float, slope: float, is_sl
     """
     sum: float = np.sum([(prediction(row[0], intercept, slope) - row[1]) * row[0] if is_slope \
         else prediction(row[0], intercept, slope) - row[1] for row in data.values])
-    gradient = 1/len(data)*sum
-    return gradient
+    return 1/len(data)*sum
 
 def forward_propagation(data: pd.DataFrame, intercept: float, slope: float) -> float:
     """
@@ -52,8 +51,8 @@ class LinearRegression:
         self.intercept, self.slope, self.km_min, self.km_max, \
             self.price_min, self.price_max = get_model_parameters()
         if self.training:
-            self.learning_rate: float = 0.01
-            self.epochs: int = 10000
+            self.learning_rate: float = 1e-3
+            self.epochs: int = 30000
             self.costs: List[float] = []
             self._normalize()
 
@@ -69,6 +68,7 @@ class LinearRegression:
             self.costs.append(cost)
             self.intercept, self.slope = backward_propagation(self.data, self.intercept, self.slope, self.learning_rate)
             if i % 1000 == 0:
+                self.learning_rate *= 1.1
                 print(f"Epoch {i} - Cost: {cost}")
         self._denormalize()
         save_model_parameters(self.intercept, self.slope)
