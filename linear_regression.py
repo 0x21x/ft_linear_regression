@@ -83,6 +83,15 @@ class LinearRegression:
         """
         return prediction(mileage, self.intercept, self.slope)
 
+    def precision(self: 'LinearRegression') -> float:
+        """
+            Calculate the precision of the model
+        """
+        if self.training:
+            logging.warning("Precision available without the training flag!")
+            return 0
+        return 1 - cost_function(self.data, self.intercept, self.slope) / cost_function(self.data, 0, 0)
+
     def plot(self: 'LinearRegression') -> None:
         """
             Plot the dataset

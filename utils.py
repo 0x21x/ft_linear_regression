@@ -57,7 +57,7 @@ def parse_and_check_csv(normalized:bool=True) -> pd.DataFrame:
             raise SystemExit
 
     km_min, km_max, price_min, price_max = float(data['km'].min()), float(data['km'].max()), float(data['price'].min()), float(data['price'].max())
-    get_model_parameters(None, None, km_min=km_min, km_max=km_max, price_min=price_min, price_max=price_max)
+    get_model_parameters(0, 0, km_min=km_min, km_max=km_max, price_min=price_min, price_max=price_max)
     if normalized:
         data['km'] = (data['km'] - km_min) / (km_max - km_min)
         data['price'] = (data['price'] - price_min) / (price_max - price_min)

@@ -15,8 +15,8 @@ def ask_mileage() -> int:
             logging.error('Please enter a valid number.')
 
 def main() -> None:
-    linear_regression = LinearRegression()
-    price: float = linear_regression.predict(ask_mileage())
+    model = LinearRegression()
+    price: float = model.predict(ask_mileage())
     logging.info(f'The estimated price of the car is: {price}$')
 
 if __name__ == '__main__':
