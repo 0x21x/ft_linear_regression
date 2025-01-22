@@ -55,8 +55,7 @@ class LinearRegression:
             self.price_min, self.price_max = get_model_parameters()
         if self.training:
             self.learning_rate: float = 1e-2
-            
-            self.epochs: int = 30000
+            self.epochs: int = 10000
             self.costs: List[float] = []
             self._normalize()
 
@@ -131,6 +130,6 @@ class LinearRegression:
         if not self.training:
             logging.warning("Denormalization unavailable without the training flag!")
             return
-        self.intercept = self.intercept * (self.price_max - self.price_min) + self.price_min
+        self.intercept = self.price_max - self.price_min * self.intercept + self.price_min
         self.slope = self.slope * (self.price_max - self.price_min) / (self.km_max - self.km_min)
         logging.info(f"Denormalized parameters - Intercept: {self.intercept}, Slope: {self.slope}")

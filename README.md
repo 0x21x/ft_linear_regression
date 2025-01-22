@@ -1,5 +1,9 @@
 # Linear Regression Model for Car Price Prediction
 
+<p align="center">
+  <img src="https://i.imgur.com/0aejl7B.png" alt="Linear Regresssion" height="350">
+</p>
+
 This project implements a simple linear regression model to predict car prices based on mileage. It's designed to demonstrate the basics of machine learning and data analysis using Python.
 
 ## 📊 Project Overview
@@ -84,4 +88,3 @@ ft_linear_regression/
 ## 🙏 Acknowledgements
 
 - This project was created as part of the 42 school curriculum.
-
