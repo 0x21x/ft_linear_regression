@@ -16,6 +16,7 @@ The project consists of several Python scripts that work together to train a lin
 - **train.py**: Script to train the model.
 - **predict.py**: Script to make predictions using the trained model.
 - **plot.py**: Script to visualize the data and model results.
+- **precision.py**: Script to calculate and display the model's precision.
 - **utils.py**: Utility functions for data processing and file operations.
 
 ## 🚀 Getting Started
@@ -70,6 +71,16 @@ python plot.py
 
 This will display a scatter plot of the data points along with the fitted regression line.
 
+### Calculating Model Precision
+
+To calculate and display the precision of the trained model, run:
+
+```
+python precision.py
+```
+
+This will output the precision of the model, which is a measure of its predictive accuracy.
+
 ## 📁 Project Structure
 
 ```
@@ -78,6 +89,7 @@ ft_linear_regression/
 ├── data.csv                 # Input data file
 ├── linear_regression.py     # Main linear regression implementation
 ├── plot.py                  # Data visualization script
+├── precision.py             # Model precision calculation script
 ├── predict.py               # Prediction script
 ├── train.py                 # Model training script
 ├── utils.py                 # Utility functions
